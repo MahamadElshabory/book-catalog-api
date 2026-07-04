@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+py_env/
+
+# Environment variables / secrets
+.env
+
+# Databases
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+sent_emails/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
