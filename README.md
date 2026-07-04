@@ -1,21 +1,47 @@
 # Bookly FastAPI Project
 
-Bookly is a backend API project built with FastAPI. It includes book CRUD operations, user authentication, PostgreSQL database integration, JWT authentication, and background email sending using Celery and Redis.
+Bookly is a backend API project built with FastAPI. It includes a Books CRUD module, user authentication, PostgreSQL database integration, JWT authentication, and background email sending using Celery and Redis.
 
 ## Features
 
-- FastAPI backend
-- PostgreSQL database
-- SQLModel ORM
-- Async database sessions
-- Book CRUD APIs
+- Books CRUD module with separate routes, schemas, models, and service layer
+- Create, read, update, and delete book records
 - User signup and login
 - Password hashing
 - JWT token generation
+- PostgreSQL database integration
+- SQLModel ORM
+- Async database sessions
 - Celery background tasks
 - Redis message broker
 - Email sending after signup
 - Environment-based configuration
+
+
+## Project Structure
+
+```txt
+src/
+├── auth/
+│   ├── models.py
+│   ├── routes.py
+│   ├── schema.py
+│   ├── service.py
+│   └── utils.py
+│
+├── books/
+│   ├── models.py
+│   ├── routes.py
+│   ├── schemas.py
+│   └── service.py
+│
+├── db/
+│   └── mainn.py
+│
+├── celery_tasks.py
+├── mail.py
+├── configg.py
+└── main.py
 
 ## Tech Stack
 
