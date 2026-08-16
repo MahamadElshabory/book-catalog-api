@@ -1,76 +1,32 @@
-# Bookly FastAPI Project
+Book Catalog API
 
-Bookly is a backend API project built with FastAPI. It includes a Books CRUD module, user authentication, PostgreSQL database integration, JWT authentication, and background email sending using Celery and Redis.
+A REST API for managing a book catalog with user authentication and asynchronous background jobs, built to practice production backend patterns: JWT auth, async task queues, and relational data modeling.
 
-## Features
+Features
+Full CRUD for books (create, read, update, delete)
+JWT-based authentication and authorization
+Background email sending via Celery + Redis (non-blocking request handling)
+PostgreSQL persistence with SQLModel ORM
+Auto-generated API docs (OpenAPI/Swagger via FastAPI)
+Tech Stack
 
-- Books CRUD module with separate routes, schemas, models, and service layer
-- Create, read, update, and delete book records
-- User signup and login
-- Password hashing
-- JWT token generation
-- PostgreSQL database integration
-- SQLModel ORM
-- Async database sessions
-- Celery background tasks
-- Redis message broker
-- Email sending after signup
-- Environment-based configuration
+FastAPI PostgreSQL SQLModel Celery Redis JWT Docker
 
+Architecture
 
-## Project Structure
+Requests hit FastAPI route handlers, which validate input via Pydantic/SQLModel schemas and write to PostgreSQL. Any slow operation — currently email notifications on book events — is offloaded to a Celery worker via a Redis broker, so the API response isn't blocked waiting on I/O. This mirrors the pattern used for real async workloads like notification systems or report generation.
 
-```txt
-src/
-├── auth/
-│   ├── models.py
-│   ├── routes.py
-│   ├── schema.py
-│   ├── service.py
-│   └── utils.py
-│
-├── books/
-│   ├── models.py
-│   ├── routes.py
-│   ├── schemas.py
-│   └── service.py
-│
-├── db/
-│   └── mainn.py
-│
-├── celery_tasks.py
-├── mail.py
-├── configg.py
-└── main.py
+What I focused on
 
-## Tech Stack
+This project was where I learned how to decouple request/response cycles from slow side-effects using a task queue — a pattern that shows up constantly in production backends (emails, PDF generation, ML inference, etc.), not just this one use case.
 
-- Python
-- FastAPI
-- PostgreSQL
-- SQLModel
-- SQLAlchemy Async
-- Pydantic
-- Celery
-- Redis
-- FastAPI-Mail
-- JWT
-- Docker
+Run locally
+bash
+docker-compose up --build
 
-## Project Flow
+API docs available at /docs.
 
-When a user signs up:
-
-1. FastAPI receives the signup request.
-2. The user is saved in PostgreSQL.
-3. FastAPI sends an email task to Celery.
-4. Redis stores the background task.
-5. Celery worker receives the task.
-6. The email is sent in the background.
-
-## How to Run
-
-### 1. Create virtual environment
-
-```bash
-python -m venv env
+Possible next steps
+Add pytest test suite
+Add rate limiting
+Deploy live demo (Render/Railway)
