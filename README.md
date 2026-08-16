@@ -15,7 +15,7 @@ JWT-based authentication and authorization
 Background email sending via Celery + Redis (non-blocking request handling)
 PostgreSQL persistence with SQLModel ORM
 Auto-generated API docs (OpenAPI/Swagger via FastAPI)
-Tech Stack
+## Tech Stack
 
 FastAPI PostgreSQL SQLModel Celery Redis JWT Docker
 
